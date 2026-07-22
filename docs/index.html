@@ -343,7 +343,7 @@
    YOUR STORY LIVES HERE.
    Edit the `title`, `body`, and `sign` of each chapter freely.
    - Wrap words in <span class="hl">...</span> to make them glow gold.
-   - `img` points to the photo. `reverse:true` puts the photo on the right.
+   - `img` points to the photo. Sides auto-alternate (left, right, left, ...).
    ========================================================================= */
 const CHAPTERS = [
   {
@@ -351,70 +351,60 @@ const CHAPTERS = [
     title:'The girl named <span class="accent">Moonlight</span>',
     body:'Your parents named you Chandni, which means <span class="hl">moonlight</span>, long before they knew how right they would be. This was the very first birthday I got to celebrate with you, and standing there watching you glow under the night, I understood the name completely. On the darkest nights, you are the softest, steadiest light I have.',
     sign:"the first birthday of ours that I got to keep",
-    reverse:false
   },
   {
     img:"assets/img/cycle-garden.jpg",
     title:'That <span class="accent">laugh</span>',
     body:'You on that cycle, head thrown back, the whole garden in bloom behind you. This is the laugh I would cross any distance for. When you are happy like this, <span class="hl">the whole world feels lighter.</span>',
     sign:"keep laughing, I will keep watching",
-    reverse:false
   },
   {
     img:"assets/img/cloud-cafe.jpg",
     title:'First trip to <span class="accent">Indore</span>',
     body:'This was the first time I came all the way to Indore to see you, right after you started your new job there. A new city, a whole new life, and all I wanted was to be a part of it. We ended up here under a ceiling of soft lights, and I remember thinking <span class="hl">I would travel anywhere just to sit across from you.</span>',
     sign:"the first of many trains and flights to you",
-    reverse:true
   },
   {
     img:"assets/img/sultanpur-night.jpg",
     title:'Thirty-second <span class="accent">Avenue</span>',
     body:'Your very first birthday with me, the two of us wandering around 32nd Avenue in Gurgaon with the whole place glowing around us. Every single light was strung up above us, and still you were the brightest thing there. I could spend a thousand ordinary nights like this and call every one of them <span class="hl">the best night of my life.</span>',
     sign:"my favourite person in any crowd",
-    reverse:false
   },
   {
     img:"assets/img/wedding-gala.jpg",
     title:'Our first <span class="accent">date</span>',
     body:'Our very first date, and of all the places in the world it turned out to be your office party from back when you were at Deloitte. I still laugh about that. I was nervous and proud all at once, walking in beside you. You in that gown, me trying my best to look like I belonged, and honestly <span class="hl">I would relive that slightly awkward, completely perfect night a hundred times over.</span>',
     sign:"proudest date at the whole party",
-    reverse:true
   },
   {
     img:"assets/img/beach-dinner.jpg",
     title:'The iced <span class="accent">latte</span>',
     body:'On my most recent trip to Indore we found this cafe, and you ordered an iced latte with no sugar, of course, because you always demand everything with no sugar. Then you took one sip, made that face, and slowly realised you actually do like sugar after all. I laughed so hard watching you sit there, quietly betrayed by your own order. <span class="hl">I fall for you all over again in moments this small.</span>',
     sign:"still laughing about that one sip",
-    reverse:false
   },
   {
     img:"assets/img/perfume-shop.jpg",
     title:'Your <span class="accent">hometown</span>',
     body:'The first time you took me to your hometown, you brought me to the Paras Perfumes factory. Someone was walking us through all the different oils they use, and somewhere in the middle of it I turned and quietly took this photo of you. A whole room full of scents, and you were still the only thing I wanted to remember. <span class="hl">Being let into your world is my favourite place to be.</span>',
     sign:"home is wherever you show me",
-    reverse:true
   },
   {
     img:"assets/img/gold-mirror.jpg",
     title:'Accidentally <span class="accent">matching</span>',
     body:'This was from that first trip to Indore too, where without planning a single thing we both turned up dressed head to toe in black. No texts, no coordinating, just two people who somehow keep landing on the exact same page. We caught ourselves in this gold mirror and I thought, <span class="hl">of course we match, we always have.</span>',
     sign:"same wavelength, always",
-    reverse:false
   },
   {
     img:"assets/img/portugal-jersey.jpg",
     title:'My favourite <span class="accent">teammate</span>',
     body:'Right before the World Cup began I got us both Portugal jerseys, because if you know me at all you know I ride for Ronaldo. You do not even watch football, but you put it on for me anyway and sat through Portugal match after Portugal match right by my side. That is the kind of love that gets me. <span class="hl">You show up for the things I love, simply because they are mine.</span>',
     sign:"você e eu, sempre",
-    reverse:true
   },
   {
     img:"assets/img/anime-cap.jpg",
     title:'How I <span class="accent">see</span> you',
     body:'Okay, this one does not have a grand story behind it. I made this little Ghibli version of you with some AI one afternoon, just because I loved the idea of seeing you drawn as soft and warm as you actually feel to me. No occasion, no reason, just you living rent free in my head, as usual. <span class="hl">Even my idlest afternoons somehow end up being about you.</span>',
     sign:"forever yours, forever amazed",
-    reverse:false
   }
 ];
 
@@ -440,7 +430,7 @@ const FINALE_LINES = [
   // build chapters
   CHAPTERS.forEach((c,i)=>{
     const sec=document.createElement('article');
-    sec.className='chapter'+(c.reverse?' reverse':'');
+    sec.className='chapter'+((i%2===1)?' reverse':'');
     sec.dataset.i=i;
     sec.innerHTML=`
       <div class="photo-col"><div class="frame"><img src="${c.img}" alt="A memory of Chandni" loading="${i<2?'eager':'lazy'}"><span class="corner c-tl"></span><span class="corner c-tr"></span><span class="corner c-bl"></span><span class="corner c-br"></span></div></div>
