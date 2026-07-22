@@ -51,7 +51,8 @@
   #stars,#petals{position:fixed;inset:0;z-index:1;pointer-events:none}
 
   .vignette{position:fixed;inset:0;z-index:2;pointer-events:none;
-    box-shadow:inset 0 0 24vmax rgba(6,3,12,.75);}
+    box-shadow:inset 0 0 24vmax rgba(6,3,12,.75);animation:breathe 10s ease-in-out infinite}
+  @keyframes breathe{0%,100%{box-shadow:inset 0 0 24vmax rgba(6,3,12,.78)}50%{box-shadow:inset 0 0 19vmax rgba(6,3,12,.58)}}
 
   /* ---------- shared ---------- */
   .wrap{position:relative;z-index:5;height:100dvh;width:100%;display:flex;align-items:center;justify-content:center}
@@ -101,7 +102,7 @@
   #stage.show{opacity:1;visibility:visible}
   .chapter{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(1rem,4vw,4rem);
     padding:clamp(1.2rem,5vw,4rem) clamp(1.4rem,6vw,6rem);
-    opacity:0;visibility:hidden;pointer-events:none;transition:opacity .1s}
+    opacity:0;visibility:hidden;pointer-events:none;transition:opacity .7s var(--ease),visibility .7s var(--ease)}
   .chapter.active{opacity:1;visibility:visible;pointer-events:auto}
   .chapter.reverse{grid-template-columns:1fr 1fr}
   .chapter.reverse .photo-col{order:2}
@@ -160,9 +161,6 @@
   .mp::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 35% 32%,#fff,var(--gold));transform:translateX(-100%);transition:transform .5s var(--ease)}
   .mp.filled::after{transform:translateX(0)}
   .mp.current{box-shadow:0 0 12px 2px rgba(246,226,179,.6);transform:scale(1.25)}
-  .counter{position:fixed;top:max(1.4rem,env(safe-area-inset-top));left:50%;transform:translateX(-50%);z-index:20;
-    font-family:var(--label);letter-spacing:.3em;font-size:.72rem;color:var(--gold);opacity:0;transition:opacity .8s}
-  .counter.show{opacity:.8}
 
   /* ---------- finale ---------- */
   #finale{position:absolute;inset:0;z-index:6;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity 1.2s var(--ease),visibility 1.2s}
@@ -218,6 +216,17 @@
     animation:fadeIn 1.2s ease 2.6s forwards}
   .continue-cue i{font-style:normal;font-size:1.4rem;line-height:1;animation:nudge 1.8s var(--ease) infinite}
   @keyframes nudge{0%,100%{transform:translateX(0);opacity:.6}50%{transform:translateX(6px);opacity:1}}
+
+  /* finale closer: beating heart + final vow */
+  .finale-close{margin-top:1.7rem;opacity:0;transform:translateY(14px);
+    transition:opacity 1.6s var(--ease),transform 1.6s var(--ease)}
+  .finale-close.in{opacity:1;transform:none}
+  .finale-close .beat{font-size:2.3rem;color:var(--rose);line-height:1;
+    filter:drop-shadow(0 0 16px rgba(231,155,180,.65));animation:beat 1.7s ease-in-out infinite}
+  @keyframes beat{0%,100%{transform:scale(1)}12%{transform:scale(1.24)}24%{transform:scale(1)}38%{transform:scale(1.15)}52%{transform:scale(1)}}
+  .finale-close .ps{margin-top:.5rem;font-family:var(--script);font-size:clamp(1.5rem,4.6vw,2.4rem);
+    line-height:1.25;background:linear-gradient(180deg,#fff,var(--gold-soft) 60%,var(--rose));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
 
   /* finale stacked lines */
   #finale .type{min-height:6.5em;display:flex;flex-direction:column;gap:.5rem;align-items:center;margin-top:1.4rem}
@@ -312,12 +321,15 @@
       <div class="hairline" style="width:60%"></div>
       <div class="big">I love you, Chandni</div>
       <div class="type" id="typeLine"></div>
+      <div class="finale-close" id="finaleClose">
+        <div class="beat" aria-hidden="true">&#10084;</div>
+        <p class="ps">I would choose you. In this life, and in every one after.</p>
+      </div>
       <button class="replay" id="replayBtn">relive it from the start</button>
     </div>
   </section>
 
   <!-- HUD -->
-  <div class="counter" id="counter"></div>
   <div id="hud">
     <button class="navbtn" id="prevBtn" aria-label="previous">&#8249;</button>
     <div class="moons" id="moons"></div>
@@ -336,23 +348,13 @@
 const CHAPTERS = [
   {
     img:"assets/img/chandni-portrait.jpg",
-    index:"Chapter I",
     title:'The girl named <span class="accent">Moonlight</span>',
     body:'Your parents named you Chandni, which means <span class="hl">moonlight</span>, long before they knew how right they would be. This was the very first birthday I got to celebrate with you, and standing there watching you glow under the night, I understood the name completely. On the darkest nights, you are the softest, steadiest light I have.',
     sign:"the first birthday of ours that I got to keep",
     reverse:false
   },
   {
-    img:"assets/img/collage-birthday.jpg",
-    index:"Chapter II",
-    title:'A whole <span class="accent">collage</span> of you',
-    body:'One frame was never enough for you. Every version of you, dressed up, dressed down, laughing, thinking, caught mid sentence, I want them all. This is what my heart looks like on the inside: <span class="hl">completely full of you.</span>',
-    sign:"every single frame is my favourite",
-    reverse:true
-  },
-  {
     img:"assets/img/cycle-garden.jpg",
-    index:"Chapter III",
     title:'That <span class="accent">laugh</span>',
     body:'You on that cycle, head thrown back, the whole garden in bloom behind you. This is the laugh I would cross any distance for. When you are happy like this, <span class="hl">the whole world feels lighter.</span>',
     sign:"keep laughing, I will keep watching",
@@ -360,7 +362,6 @@ const CHAPTERS = [
   },
   {
     img:"assets/img/cloud-cafe.jpg",
-    index:"Chapter IV",
     title:'First trip to <span class="accent">Indore</span>',
     body:'This was the first time I came all the way to Indore to see you, right after you started your new job there. A new city, a whole new life, and all I wanted was to be a part of it. We ended up here under a ceiling of soft lights, and I remember thinking <span class="hl">I would travel anywhere just to sit across from you.</span>',
     sign:"the first of many trains and flights to you",
@@ -368,7 +369,6 @@ const CHAPTERS = [
   },
   {
     img:"assets/img/sultanpur-night.jpg",
-    index:"Chapter V",
     title:'Thirty-second <span class="accent">Avenue</span>',
     body:'Your very first birthday with me, the two of us wandering around 32nd Avenue in Gurgaon with the whole place glowing around us. Every single light was strung up above us, and still you were the brightest thing there. I could spend a thousand ordinary nights like this and call every one of them <span class="hl">the best night of my life.</span>',
     sign:"my favourite person in any crowd",
@@ -376,7 +376,6 @@ const CHAPTERS = [
   },
   {
     img:"assets/img/wedding-gala.jpg",
-    index:"Chapter VI",
     title:'Our first <span class="accent">date</span>',
     body:'Our very first date, and of all the places in the world it turned out to be your office party from back when you were at Deloitte. I still laugh about that. I was nervous and proud all at once, walking in beside you. You in that gown, me trying my best to look like I belonged, and honestly <span class="hl">I would relive that slightly awkward, completely perfect night a hundred times over.</span>',
     sign:"proudest date at the whole party",
@@ -384,7 +383,6 @@ const CHAPTERS = [
   },
   {
     img:"assets/img/beach-dinner.jpg",
-    index:"Chapter VII",
     title:'The iced <span class="accent">latte</span>',
     body:'On my most recent trip to Indore we found this cafe, and you ordered an iced latte with no sugar, of course, because you always demand everything with no sugar. Then you took one sip, made that face, and slowly realised you actually do like sugar after all. I laughed so hard watching you sit there, quietly betrayed by your own order. <span class="hl">I fall for you all over again in moments this small.</span>',
     sign:"still laughing about that one sip",
@@ -392,7 +390,6 @@ const CHAPTERS = [
   },
   {
     img:"assets/img/perfume-shop.jpg",
-    index:"Chapter VIII",
     title:'Your <span class="accent">hometown</span>',
     body:'The first time you took me to your hometown, you brought me to the Paras Perfumes factory. Someone was walking us through all the different oils they use, and somewhere in the middle of it I turned and quietly took this photo of you. A whole room full of scents, and you were still the only thing I wanted to remember. <span class="hl">Being let into your world is my favourite place to be.</span>',
     sign:"home is wherever you show me",
@@ -400,7 +397,6 @@ const CHAPTERS = [
   },
   {
     img:"assets/img/gold-mirror.jpg",
-    index:"Chapter IX",
     title:'Accidentally <span class="accent">matching</span>',
     body:'This was from that first trip to Indore too, where without planning a single thing we both turned up dressed head to toe in black. No texts, no coordinating, just two people who somehow keep landing on the exact same page. We caught ourselves in this gold mirror and I thought, <span class="hl">of course we match, we always have.</span>',
     sign:"same wavelength, always",
@@ -408,7 +404,6 @@ const CHAPTERS = [
   },
   {
     img:"assets/img/portugal-jersey.jpg",
-    index:"Chapter X",
     title:'My favourite <span class="accent">teammate</span>',
     body:'Right before the World Cup began I got us both Portugal jerseys, because if you know me at all you know I ride for Ronaldo. You do not even watch football, but you put it on for me anyway and sat through Portugal match after Portugal match right by my side. That is the kind of love that gets me. <span class="hl">You show up for the things I love, simply because they are mine.</span>',
     sign:"você e eu, sempre",
@@ -416,7 +411,6 @@ const CHAPTERS = [
   },
   {
     img:"assets/img/anime-cap.jpg",
-    index:"Chapter XI",
     title:'How I <span class="accent">see</span> you',
     body:'Okay, this one does not have a grand story behind it. I made this little Ghibli version of you with some AI one afternoon, just because I loved the idea of seeing you drawn as soft and warm as you actually feel to me. No occasion, no reason, just you living rent free in my head, as usual. <span class="hl">Even my idlest afternoons somehow end up being about you.</span>',
     sign:"forever yours, forever amazed",
@@ -438,7 +432,6 @@ const FINALE_LINES = [
   const intro=document.getElementById('intro');
   const finale=document.getElementById('finale');
   const hud=document.getElementById('hud');
-  const counter=document.getElementById('counter');
   const moonsWrap=document.getElementById('moons');
   const prevBtn=document.getElementById('prevBtn');
   const nextBtn=document.getElementById('nextBtn');
@@ -478,7 +471,6 @@ const FINALE_LINES = [
     chapters.forEach(ch=>ch.classList.remove('active'));
     // force reflow so re-entering a chapter replays animation
     const el=chapters[i]; void el.offsetWidth; el.classList.add('active');
-    counter.textContent=`${String(i+1).padStart(2,'0')} · ${String(N).padStart(2,'0')}`;
     setMoons(i);
     prevBtn.disabled=false; nextBtn.disabled=false;
   }
@@ -493,7 +485,6 @@ const FINALE_LINES = [
     stage.classList.toggle('show', target>=0 && target<N);
     finale.classList.toggle('show', target===N);
     hud.classList.toggle('show', target>=-1 && target<N);
-    counter.classList.toggle('show', target>=0 && target<N);
 
     if(target>=0 && target<N) showChapter(target);
     if(target===N) runFinale();
@@ -559,7 +550,12 @@ const FINALE_LINES = [
     typeLine.innerHTML='';
     let li=0;
     function nextLine(){
-      if(li>=FINALE_LINES.length){ replayBtn.classList.add('show'); return; }
+      if(li>=FINALE_LINES.length){
+        const fc=document.getElementById('finaleClose');
+        setTimeout(()=>{ fc.classList.add('in'); burst(); },600);
+        setTimeout(()=>replayBtn.classList.add('show'),2600);
+        return;
+      }
       const text=FINALE_LINES[li];
       const line=document.createElement('p');
       line.className='line';
@@ -582,12 +578,12 @@ const FINALE_LINES = [
     }
     setTimeout(nextLine,700);
   }
-  replayBtn.addEventListener('click',()=>{ finaleRun=false; replayBtn.classList.remove('show'); typeLine.innerHTML=''; go(-1); });
+  replayBtn.addEventListener('click',()=>{ finaleRun=false; replayBtn.classList.remove('show'); typeLine.innerHTML=''; document.getElementById('finaleClose').classList.remove('in'); go(-1); });
 
   // ---------- background music ----------
   const bgm=document.getElementById('bgm');
   const musicToggle=document.getElementById('musicToggle');
-  const TARGET_VOL=0.5;
+  const TARGET_VOL=0.32;
   let musicOn=false, fadeTimer=null;
   function fadeVol(to,ms){
     clearInterval(fadeTimer);
