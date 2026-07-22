@@ -7,7 +7,7 @@
 <title>Meri Chandni · For Chandni</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Marcellus&family=Great+Vibes&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Parisienne&family=Marcellus&display=swap" rel="stylesheet" />
 <style>
   :root{
     --ink:#f3ecff;
@@ -20,9 +20,10 @@
     --plum-2:#241436;
     --wine:#3a1730;
     --glass:rgba(255,255,255,.06);
-    --serif:"Cormorant Garamond", Georgia, serif;
-    --display:"Marcellus", Georgia, serif;
-    --script:"Great Vibes", cursive;
+    --serif:"EB Garamond", Georgia, serif;
+    --display:"Fraunces", Georgia, serif;
+    --label:"Marcellus", Georgia, serif;
+    --script:"Parisienne", cursive;
     --ease:cubic-bezier(.16,1,.3,1);
   }
 
@@ -55,7 +56,7 @@
   /* ---------- shared ---------- */
   .wrap{position:relative;z-index:5;height:100dvh;width:100%;display:flex;align-items:center;justify-content:center}
   .center{text-align:center;padding:0 7vw;max-width:960px}
-  .kicker{font-family:var(--display);letter-spacing:.55em;text-transform:uppercase;font-size:clamp(.6rem,1.6vw,.78rem);color:var(--gold);opacity:.85;padding-left:.55em}
+  .kicker{font-family:var(--label);letter-spacing:.55em;text-transform:uppercase;font-size:clamp(.6rem,1.6vw,.78rem);color:var(--gold);opacity:.85;padding-left:.55em}
   .script{font-family:var(--script)}
   .hairline{width:0;height:1px;margin:1.6rem auto;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.7}
 
@@ -74,11 +75,15 @@
   @keyframes moonrise{from{transform:translateY(40px) scale(.7);opacity:0;filter:blur(6px)}to{transform:none;opacity:1;filter:blur(0)}}
   @keyframes moonglow{0%,100%{box-shadow:0 0 4px #fff,0 0 40px 6px rgba(246,226,179,.55),0 0 120px 30px rgba(233,197,131,.32),inset -22px -14px 44px rgba(120,86,53,.55)}50%{box-shadow:0 0 6px #fff,0 0 56px 10px rgba(246,226,179,.7),0 0 150px 42px rgba(233,197,131,.45),inset -22px -14px 44px rgba(120,86,53,.55)}}
 
-  #gate .gate-title{font-family:var(--script);font-size:clamp(3rem,11vw,6.2rem);line-height:.9;margin-top:2.2rem;
-    background:linear-gradient(180deg,#fff,var(--gold-soft) 60%,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent;
-    opacity:0;animation:fadeUp 1.1s var(--ease) 1s both;text-shadow:0 4px 40px rgba(233,197,131,.25)}
+  #gate .gate-title{font-family:var(--script);font-size:clamp(3.4rem,12vw,7rem);line-height:1.18;margin-top:2rem;
+    padding:.12em .18em .22em;overflow:visible;
+    background:linear-gradient(100deg,var(--gold-soft) 0%,#fff 25%,var(--gold-soft) 45%,var(--gold) 70%,var(--gold-soft) 100%);
+    background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;
+    opacity:0;animation:fadeUp 1.1s var(--ease) 1s both, shimmer 6s linear 2s infinite;
+    filter:drop-shadow(0 4px 40px rgba(233,197,131,.28))}
+  @keyframes shimmer{to{background-position:220% center}}
   #gate .gate-sub{font-family:var(--serif);font-style:italic;font-size:clamp(1rem,3.4vw,1.4rem);color:var(--ink-soft);margin-top:.4rem;opacity:0;animation:fadeUp 1.1s var(--ease) 1.35s both}
-  .openbtn{margin-top:2.6rem;font-family:var(--display);letter-spacing:.32em;text-transform:uppercase;font-size:.82rem;color:#1a0f2b;
+  .openbtn{margin-top:2.6rem;font-family:var(--label);letter-spacing:.32em;text-transform:uppercase;font-size:.82rem;color:#1a0f2b;
     background:linear-gradient(180deg,var(--gold-soft),var(--gold));border:none;border-radius:999px;padding:1.05em 2.6em 1.05em 2.9em;cursor:pointer;
     box-shadow:0 10px 30px rgba(233,197,131,.3);opacity:0;animation:fadeUp 1.1s var(--ease) 1.7s both;transition:transform .4s var(--ease),box-shadow .4s}
   .openbtn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 16px 44px rgba(233,197,131,.5)}
@@ -123,7 +128,7 @@
   /* text side */
   .text-col{max-width:min(46ch,42vw)}
   .chapter.reverse .text-col{margin-left:auto}
-  .ch-index{font-family:var(--display);color:var(--gold);letter-spacing:.4em;font-size:.72rem;text-transform:uppercase;
+  .ch-index{font-family:var(--label);color:var(--gold);letter-spacing:.4em;font-size:.72rem;text-transform:uppercase;
     opacity:0;transform:translateY(14px)}
   .ch-title{font-family:var(--display);font-size:clamp(1.6rem,4.6vw,2.7rem);line-height:1.1;margin:.5rem 0 .1rem;
     color:var(--ink);opacity:0;transform:translateY(20px)}
@@ -156,7 +161,7 @@
   .mp.filled::after{transform:translateX(0)}
   .mp.current{box-shadow:0 0 12px 2px rgba(246,226,179,.6);transform:scale(1.25)}
   .counter{position:fixed;top:max(1.4rem,env(safe-area-inset-top));left:50%;transform:translateX(-50%);z-index:20;
-    font-family:var(--display);letter-spacing:.3em;font-size:.72rem;color:var(--gold);opacity:0;transition:opacity .8s}
+    font-family:var(--label);letter-spacing:.3em;font-size:.72rem;color:var(--gold);opacity:0;transition:opacity .8s}
   .counter.show{opacity:.8}
 
   /* ---------- finale ---------- */
@@ -168,10 +173,58 @@
   #finale .type{min-height:2.4em;font-size:clamp(1.05rem,3vw,1.5rem);font-style:italic;color:var(--ink);margin-top:1.4rem}
   #finale .type .cursor{display:inline-block;width:2px;height:1.1em;background:var(--gold);margin-left:2px;vertical-align:-2px;animation:blink 1s steps(1) infinite}
   @keyframes blink{50%{opacity:0}}
-  .replay{margin-top:2.4rem;font-family:var(--display);letter-spacing:.28em;text-transform:uppercase;font-size:.74rem;color:var(--gold-soft);
+  .replay{margin-top:2.4rem;font-family:var(--label);letter-spacing:.28em;text-transform:uppercase;font-size:.74rem;color:var(--gold-soft);
     background:transparent;border:1px solid rgba(246,226,179,.4);border-radius:999px;padding:.9em 2em;cursor:pointer;transition:.35s;opacity:0}
   .replay.show{opacity:1}
   .replay:hover{background:rgba(233,197,131,.14);border-color:var(--gold)}
+
+  /* ---------- added polish ---------- */
+  /* cursor-follow moonlight glow */
+  #cursorglow{position:fixed;top:0;left:0;width:420px;height:420px;z-index:3;pointer-events:none;border-radius:50%;
+    transform:translate(-50%,-50%);opacity:0;transition:opacity .6s ease;
+    background:radial-gradient(circle,rgba(246,226,179,.10),rgba(231,155,180,.06) 40%,transparent 70%);mix-blend-mode:screen}
+  body.has-cursor #cursorglow{opacity:1}
+
+  /* animated shimmer on chapter accents */
+  .ch-title .accent{background:linear-gradient(100deg,var(--gold-soft),#fff 30%,var(--gold-soft) 55%,var(--gold) 80%,var(--gold-soft));
+    background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:shimmer 7s linear infinite}
+
+  /* signature ornament (no dashes) */
+  .ch-sign::before{content:"\2661";margin-right:.35em;font-size:.8em;color:var(--gold);-webkit-text-fill-color:var(--gold);vertical-align:.05em}
+
+  /* gold corner accents that draw onto the frame */
+  .frame .corner{position:absolute;width:26px;height:26px;z-index:4;pointer-events:none;opacity:0}
+  .frame .corner::before,.frame .corner::after{content:"";position:absolute;background:linear-gradient(90deg,var(--gold),transparent)}
+  .frame .corner::before{width:100%;height:1.5px}
+  .frame .corner::after{width:1.5px;height:100%;background:linear-gradient(180deg,var(--gold),transparent)}
+  .frame .c-tl{top:9px;left:9px}
+  .frame .c-tr{top:9px;right:9px;transform:scaleX(-1)}
+  .frame .c-bl{bottom:9px;left:9px;transform:scaleY(-1)}
+  .frame .c-br{bottom:9px;right:9px;transform:scale(-1)}
+  .chapter.active .frame .corner{animation:cornerIn .8s var(--ease) 1.1s forwards}
+  @keyframes cornerIn{from{opacity:0;transform:translate(var(--cx,-6px),var(--cy,-6px)) scale(.6)}to{opacity:.9}}
+  .frame .c-tr{--cx:6px}.frame .c-bl{--cy:6px}.frame .c-br{--cx:6px;--cy:6px}
+
+  /* open button pulsing ring */
+  .openbtn{position:relative}
+  .openbtn::after{content:"";position:absolute;inset:-2px;border-radius:999px;border:1px solid var(--gold);opacity:0;
+    animation:ring 2.6s ease-out 2.4s infinite}
+  @keyframes ring{0%{opacity:.6;transform:scale(1)}100%{opacity:0;transform:scale(1.35)}}
+
+  /* intro continue cue */
+  .continue-cue{margin-top:2.4rem;display:inline-flex;align-items:center;gap:.55rem;color:var(--gold-soft);
+    font-family:var(--label);letter-spacing:.35em;text-transform:uppercase;font-size:.66rem;opacity:0;
+    animation:fadeIn 1.2s ease 2.6s forwards}
+  .continue-cue i{font-style:normal;font-size:1.4rem;line-height:1;animation:nudge 1.8s var(--ease) infinite}
+  @keyframes nudge{0%,100%{transform:translateX(0);opacity:.6}50%{transform:translateX(6px);opacity:1}}
+
+  /* finale stacked lines */
+  #finale .type{min-height:6.5em;display:flex;flex-direction:column;gap:.5rem;align-items:center;margin-top:1.4rem}
+  #finale .type .line{font-size:clamp(1.05rem,3vw,1.5rem);font-style:italic;color:var(--ink);line-height:1.5;opacity:0;transform:translateY(8px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+  #finale .type .line.in{opacity:1;transform:none}
+  #finale .type .line.done{color:var(--gold-soft)}
+  #finale .type .cursor{display:inline-block;width:2px;height:1.05em;background:var(--gold);margin-left:3px;vertical-align:-2px;animation:blink 1s steps(1) infinite}
 
   /* mobile */
   @media (max-width:820px){
@@ -198,12 +251,13 @@
   <canvas id="stars"></canvas>
   <canvas id="petals"></canvas>
   <div class="vignette"></div>
+  <div id="cursorglow" aria-hidden="true"></div>
 
   <!-- GATE -->
   <section id="gate">
     <div class="moon" aria-hidden="true"></div>
     <h1 class="gate-title">Chandni</h1>
-    <p class="gate-sub">for my moonlight — meri chandni</p>
+    <p class="gate-sub">for my moonlight, meri chandni</p>
     <button class="openbtn" id="openBtn">Open your heart</button>
     <p class="hint">made with all of mine · use ← → or tap the arrows</p>
   </section>
@@ -214,6 +268,7 @@
       <p class="kicker">before we begin</p>
       <div class="hairline" style="animation:growHair 1.4s var(--ease) .3s forwards"></div>
       <p id="introText"></p>
+      <div class="continue-cue" aria-hidden="true"><span>continue</span><i>&#8250;</i></div>
     </div>
   </section>
 
@@ -226,7 +281,7 @@
       <p class="kicker">and always</p>
       <div class="hairline" style="width:60%"></div>
       <div class="big">I love you, Chandni</div>
-      <p class="type" id="typeLine"><span class="cursor"></span></p>
+      <div class="type" id="typeLine"></div>
       <button class="replay" id="replayBtn">relive it from the start</button>
     </div>
   </section>
@@ -253,97 +308,97 @@ const CHAPTERS = [
     img:"assets/img/chandni-portrait.jpg",
     index:"Chapter I",
     title:'The girl named <span class="accent">Moonlight</span>',
-    body:'Your parents named you Chandni — <span class="hl">moonlight</span> — long before they knew how right they were. On the darkest nights, you are the softest, steadiest light I have. I only have to look at you to feel calm.',
-    sign:"— and I never look away",
+    body:'Your parents named you Chandni, which means <span class="hl">moonlight</span>, long before they knew how right they would be. This was the very first birthday I got to celebrate with you, and standing there watching you glow under the night, I understood the name completely. On the darkest nights, you are the softest, steadiest light I have.',
+    sign:"the first birthday of ours that I got to keep",
     reverse:false
   },
   {
     img:"assets/img/collage-birthday.jpg",
     index:"Chapter II",
     title:'A whole <span class="accent">collage</span> of you',
-    body:'One frame was never enough for you. Every version of you — dressed up, dressed down, laughing, thinking, mid-sentence — I want them all. This is what my heart looks like on the inside: <span class="hl">completely full of you.</span>',
-    sign:"— every single frame is my favourite",
+    body:'One frame was never enough for you. Every version of you, dressed up, dressed down, laughing, thinking, caught mid sentence, I want them all. This is what my heart looks like on the inside: <span class="hl">completely full of you.</span>',
+    sign:"every single frame is my favourite",
     reverse:true
   },
   {
     img:"assets/img/cycle-garden.jpg",
     index:"Chapter III",
     title:'That <span class="accent">laugh</span>',
-    body:'You on that cycle, head thrown back, the whole garden in bloom behind you. This is the laugh I would cross any distance for. When you’re happy like this, <span class="hl">the whole world feels lighter.</span>',
-    sign:"— keep laughing, I’ll keep watching",
+    body:'You on that cycle, head thrown back, the whole garden in bloom behind you. This is the laugh I would cross any distance for. When you are happy like this, <span class="hl">the whole world feels lighter.</span>',
+    sign:"keep laughing, I will keep watching",
     reverse:false
   },
   {
     img:"assets/img/cloud-cafe.jpg",
     index:"Chapter IV",
-    title:'Under the <span class="accent">clouds</span>',
-    body:'Somewhere between the fairy lights and the soft chaos of a good evening, you leaned your head on me and everything went quiet. I remember thinking: <span class="hl">this. this is the life I want.</span>',
-    sign:"— dressed up, but you’re the view",
+    title:'First trip to <span class="accent">Indore</span>',
+    body:'This was the first time I came all the way to Indore to see you, right after you started your new job there. A new city, a whole new life, and all I wanted was to be a part of it. We ended up here under a ceiling of soft lights, and I remember thinking <span class="hl">I would travel anywhere just to sit across from you.</span>',
+    sign:"the first of many trains and flights to you",
     reverse:true
   },
   {
     img:"assets/img/sultanpur-night.jpg",
     index:"Chapter V",
-    title:'Cheek to <span class="accent">cheek</span>',
-    body:'The lights strung above us, the whole street glowing, and still — you were the brightest thing there. I could spend a thousand ordinary nights like this and call every one of them <span class="hl">the best night of my life.</span>',
-    sign:"— my favourite person in any crowd",
+    title:'Thirty-second <span class="accent">Avenue</span>',
+    body:'Your very first birthday with me, the two of us wandering around 32nd Avenue in Gurgaon with the whole place glowing around us. Every single light was strung up above us, and still you were the brightest thing there. I could spend a thousand ordinary nights like this and call every one of them <span class="hl">the best night of my life.</span>',
+    sign:"my favourite person in any crowd",
     reverse:false
   },
   {
     img:"assets/img/wedding-gala.jpg",
     index:"Chapter VI",
-    title:'All <span class="accent">dressed up</span>',
-    body:'You walked in and the whole room dimmed a little, the way a room does when the real light arrives. I stood a little taller that night — not because of where we were, but because <span class="hl">you were on my arm.</span>',
-    sign:"— proudest man in the room",
+    title:'Our first <span class="accent">date</span>',
+    body:'Our very first date, and of all the places in the world it turned out to be your office party from back when you were at Deloitte. I still laugh about that. I was nervous and proud all at once, walking in beside you. You in that gown, me trying my best to look like I belonged, and honestly <span class="hl">I would relive that slightly awkward, completely perfect night a hundred times over.</span>',
+    sign:"proudest date at the whole party",
     reverse:true
   },
   {
     img:"assets/img/beach-dinner.jpg",
     index:"Chapter VII",
-    title:'Somewhere <span class="accent">far</span>, together',
-    body:'New places are only worth it because I get to watch you discover them. Sand underfoot, warm light, your hands folded, that soft look on your face. <span class="hl">Anywhere is home if you’re sitting across from me.</span>',
-    sign:"— the whole world, one trip at a time",
+    title:'The iced <span class="accent">latte</span>',
+    body:'On my most recent trip to Indore we found this cafe, and you ordered an iced latte with no sugar, of course, because you always demand everything with no sugar. Then you took one sip, made that face, and slowly realised you actually do like sugar after all. I laughed so hard watching you sit there, quietly betrayed by your own order. <span class="hl">I fall for you all over again in moments this small.</span>',
+    sign:"still laughing about that one sip",
     reverse:false
   },
   {
     img:"assets/img/perfume-shop.jpg",
     index:"Chapter VIII",
-    title:'Even the <span class="accent">in-between</span>',
-    body:'Not every moment is a grand one. Sometimes it’s just you, waiting, a little bored, surrounded by a hundred scents — and I still couldn’t take my eyes off you. <span class="hl">I love the ordinary hours with you most of all.</span>',
-    sign:"— you make waiting feel like a gift",
+    title:'Your <span class="accent">hometown</span>',
+    body:'The first time you took me to your hometown, you brought me to the Paras Perfumes factory. Someone was walking us through all the different oils they use, and somewhere in the middle of it I turned and quietly took this photo of you. A whole room full of scents, and you were still the only thing I wanted to remember. <span class="hl">Being let into your world is my favourite place to be.</span>',
+    sign:"home is wherever you show me",
     reverse:true
   },
   {
     img:"assets/img/gold-mirror.jpg",
     index:"Chapter IX",
-    title:'You &amp; <span class="accent">me</span>',
-    body:'A gold mirror, a stolen selfie, the two of us in black. I look at us here and I don’t see two people — I see <span class="hl">one team, one story, one us.</span> Reflections fade; this doesn’t.',
-    sign:"— us, and only ever us",
+    title:'Accidentally <span class="accent">matching</span>',
+    body:'This was from that first trip to Indore too, where without planning a single thing we both turned up dressed head to toe in black. No texts, no coordinating, just two people who somehow keep landing on the exact same page. We caught ourselves in this gold mirror and I thought, <span class="hl">of course we match, we always have.</span>',
+    sign:"same wavelength, always",
     reverse:false
   },
   {
     img:"assets/img/portugal-jersey.jpg",
     index:"Chapter X",
     title:'My favourite <span class="accent">teammate</span>',
-    body:'Matching jerseys, terrible commentary, you stealing the good snacks. Even when we’re just being silly, I’m so aware of how lucky I am. Win or lose, <span class="hl">I always want to be on your side of the sofa.</span>',
-    sign:"— you + me, unbeaten",
+    body:'Right before the World Cup began I got us both Portugal jerseys, because if you know me at all you know I ride for Ronaldo. You do not even watch football, but you put it on for me anyway and sat through Portugal match after Portugal match right by my side. That is the kind of love that gets me. <span class="hl">You show up for the things I love, simply because they are mine.</span>',
+    sign:"você e eu, sempre",
     reverse:true
   },
   {
     img:"assets/img/anime-cap.jpg",
     index:"Chapter XI",
     title:'How I <span class="accent">see</span> you',
-    body:'If I could draw the way my heart sees you, it would look like this — soft, warm, a little playful, impossibly dear. This is you in my imagination on an ordinary Tuesday. <span class="hl">Even my daydreams are just you.</span>',
-    sign:"— forever yours, forever amazed",
+    body:'Okay, this one does not have a grand story behind it. I made this little Ghibli version of you with some AI one afternoon, just because I loved the idea of seeing you drawn as soft and warm as you actually feel to me. No occasion, no reason, just you living rent free in my head, as usual. <span class="hl">Even my idlest afternoons somehow end up being about you.</span>',
+    sign:"forever yours, forever amazed",
     reverse:false
   }
 ];
 
-const INTRO_TEXT = 'Chandni, I’m not very good at saying big things out loud. So I built you this instead — a quiet little world made only of you. Take your time. <span class="em">There’s no rush when it comes to us.</span>';
+const INTRO_TEXT = 'Chandni, I am not very good at saying the big things out loud, so I built you this instead. A quiet little world made only of you. Take your time. <span class="em">There is no rush when it comes to us.</span>';
 const FINALE_LINES = [
   "Thank you for being my calm and my chaos.",
   "For every laugh, every trip, every ordinary evening.",
-  "You are my moonlight — and I am, endlessly, yours."
+  "You are my moonlight, and I am, endlessly, yours."
 ];
 
 /* ===================== ENGINE (no need to edit below) ===================== */
@@ -365,7 +420,7 @@ const FINALE_LINES = [
     sec.className='chapter'+(c.reverse?' reverse':'');
     sec.dataset.i=i;
     sec.innerHTML=`
-      <div class="photo-col"><div class="frame"><img src="${c.img}" alt="A memory of Chandni" loading="${i<2?'eager':'lazy'}"></div></div>
+      <div class="photo-col"><div class="frame"><img src="${c.img}" alt="A memory of Chandni" loading="${i<2?'eager':'lazy'}"><span class="corner c-tl"></span><span class="corner c-tr"></span><span class="corner c-bl"></span><span class="corner c-br"></span></div></div>
       <div class="text-col">
         <div class="ch-index">${c.index||('Chapter '+roman(i))}</div>
         <h2 class="ch-title">${c.title}</h2>
@@ -442,8 +497,12 @@ const FINALE_LINES = [
     go(idx + (e.deltaY>0?1:-1));
   },{passive:true});
 
-  // parallax tilt on active frame
+  // parallax tilt on active frame + cursor-follow glow
+  const cursorGlow=document.getElementById('cursorglow');
   window.addEventListener('mousemove',e=>{
+    document.body.classList.add('has-cursor');
+    cursorGlow.style.left=e.clientX+'px';
+    cursorGlow.style.top=e.clientY+'px';
     const f=document.querySelector('.chapter.active .frame'); if(!f) return;
     const rx=(e.clientY/innerHeight-.5)*-6, ry=(e.clientX/innerWidth-.5)*8;
     f.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg)`;
@@ -467,20 +526,33 @@ const FINALE_LINES = [
   function runFinale(){
     if(finaleRun) return; finaleRun=true;
     burst();
+    typeLine.innerHTML='';
     let li=0;
     function nextLine(){
       if(li>=FINALE_LINES.length){ replayBtn.classList.add('show'); return; }
-      const text=FINALE_LINES[li]; let ci=0;
-      typeLine.innerHTML='<span class="cursor"></span>';
+      const text=FINALE_LINES[li];
+      const line=document.createElement('p');
+      line.className='line';
+      const span=document.createElement('span');
+      const cur=document.createElement('span'); cur.className='cursor';
+      line.appendChild(span); line.appendChild(cur);
+      typeLine.appendChild(line);
+      // fade the new (empty) line in, then type into it while previous lines stay
+      requestAnimationFrame(()=>line.classList.add('in'));
+      let ci=0;
       const tick=setInterval(()=>{
-        ci++;
-        typeLine.innerHTML=text.slice(0,ci)+'<span class="cursor"></span>';
-        if(ci>=text.length){ clearInterval(tick); li++; setTimeout(nextLine,1100); }
-      },42);
+        ci++; span.textContent=text.slice(0,ci);
+        if(ci>=text.length){
+          clearInterval(tick);
+          cur.remove();               // drop cursor, keep the finished line in place
+          line.classList.add('done');
+          li++; setTimeout(nextLine,900);
+        }
+      },40);
     }
     setTimeout(nextLine,700);
   }
-  replayBtn.addEventListener('click',()=>{ finaleRun=false; replayBtn.classList.remove('show'); go(-1); });
+  replayBtn.addEventListener('click',()=>{ finaleRun=false; replayBtn.classList.remove('show'); typeLine.innerHTML=''; go(-1); });
 
   // gate
   function openGate(){
@@ -517,7 +589,17 @@ const FINALE_LINES = [
     return {x:Math.random()*pc.width, y:rand?Math.random()*pc.height:pc.height+20,
       s:Math.random()*7+3, vy:-(Math.random()*.35+.12), vx:(Math.random()-.5)*.35,
       rot:Math.random()*Math.PI, vr:(Math.random()-.5)*.02, a:Math.random()*.5+.25,
+      heart:Math.random()<.38,
       hue:Math.random()<.5?'233,197,131':'231,155,180'};
+  }
+  function heartPath(g,r){
+    g.beginPath();
+    g.moveTo(0,r*.35);
+    g.bezierCurveTo(0,-r*.1, -r, -r*.15, -r, r*.35);
+    g.bezierCurveTo(-r, r, -r*.15, r*1.05, 0, r*1.5);
+    g.bezierCurveTo(r*.15, r*1.05, r, r, r, r*.35);
+    g.bezierCurveTo(r, -r*.15, 0, -r*.1, 0, r*.35);
+    g.closePath();
   }
   function drawPetals(){
     px.clearRect(0,0,pc.width,pc.height);
@@ -525,9 +607,10 @@ const FINALE_LINES = [
       m.x+=m.vx; m.y+=m.vy; m.rot+=m.vr; m.x+=Math.sin(m.y*.01)*.3;
       if(m.y<-20||m.x<-30||m.x>pc.width+30){ Object.assign(m,spawn(false)); }
       px.save(); px.translate(m.x,m.y); px.rotate(m.rot);
-      px.beginPath();
-      px.ellipse(0,0,m.s,m.s*.55,0,0,7);
-      px.fillStyle=`rgba(${m.hue},${m.a})`; px.shadowColor=`rgba(${m.hue},.6)`; px.shadowBlur=8; px.fill();
+      px.fillStyle=`rgba(${m.hue},${m.a})`; px.shadowColor=`rgba(${m.hue},.6)`; px.shadowBlur=8;
+      if(m.heart){ heartPath(px,m.s*.8); }
+      else{ px.beginPath(); px.ellipse(0,0,m.s,m.s*.55,0,0,7); }
+      px.fill();
       px.restore();
     }
     requestAnimationFrame(drawPetals);
