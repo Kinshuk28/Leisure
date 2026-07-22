@@ -237,6 +237,12 @@
   #finale .type .line.done{color:var(--gold-soft)}
   #finale .type .cursor{display:inline-block;width:2px;height:1.05em;background:var(--gold);margin-left:3px;vertical-align:-2px;animation:blink 1s steps(1) infinite}
 
+  /* soft fades so nothing bleeds behind the controls (keeps arrows/dots readable) */
+  .edge-scrim{position:fixed;left:0;right:0;z-index:19;pointer-events:none;opacity:0;transition:opacity .6s ease}
+  .edge-scrim.bottom{bottom:0;height:112px;background:linear-gradient(to top,var(--plum-0) 10%,rgba(11,7,20,.7) 46%,transparent 100%)}
+  .edge-scrim.top{top:0;height:96px;background:linear-gradient(to bottom,rgba(11,7,20,.82) 6%,transparent 100%)}
+  body.reading .edge-scrim{opacity:1}
+
   /* music toggle with live equalizer */
   .music-toggle{position:fixed;top:max(1.3rem,env(safe-area-inset-top));right:max(1.3rem,env(safe-area-inset-top));z-index:22;
     width:46px;height:46px;border-radius:50%;border:1px solid rgba(246,226,179,.32);background:var(--glass);backdrop-filter:blur(8px);
@@ -264,14 +270,16 @@
        so nothing is ever clipped or collides with the bottom controls */
     .chapter,.chapter.reverse{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
       grid-template-columns:none;gap:.9rem;text-align:center;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
-      padding:calc(4.4rem + env(safe-area-inset-top)) 1.4rem calc(6.6rem + env(safe-area-inset-bottom))}
+      /* stop the readable area above the fixed nav so text never rests under it */
+      bottom:calc(5.8rem + env(safe-area-inset-bottom));
+      padding:calc(4.4rem + env(safe-area-inset-top)) 1.4rem 1.2rem}
     /* flexible spacers centre the content when it fits, and collapse so it scrolls from the top when it does not */
     .chapter::before,.chapter::after{content:"";display:block;flex:1 1 0;min-height:0;width:1px}
     .chapter::before{order:0}
     .chapter::after{order:3}
     .chapter .photo-col,.chapter.reverse .photo-col{order:1;flex:0 0 auto;width:100%}
     .chapter .text-col,.chapter.reverse .text-col{order:2;flex:0 0 auto;width:100%;max-width:34rem;margin:0 auto}
-    .frame{max-width:min(56vw,224px)}
+    .frame{max-width:min(52vw,208px)}
     .ch-index{font-size:.66rem}
     .ch-title{font-size:clamp(1.55rem,7.4vw,2.15rem)}
     .ch-rule,.chapter.active .ch-rule{margin-left:auto;margin-right:auto}
@@ -306,6 +314,8 @@
   <canvas id="stars"></canvas>
   <canvas id="petals"></canvas>
   <div class="vignette"></div>
+  <div class="edge-scrim top" aria-hidden="true"></div>
+  <div class="edge-scrim bottom" aria-hidden="true"></div>
   <div id="cursorglow" aria-hidden="true"></div>
 
   <!-- background music: drop the track at assets/audio/lae-dooba.mp3 -->
@@ -501,6 +511,7 @@ const FINALE_LINES = [
     stage.classList.toggle('show', target>=0 && target<N);
     finale.classList.toggle('show', target===N);
     hud.classList.toggle('show', target>=-1 && target<N);
+    document.body.classList.toggle('reading', target>=0 && target<N);
 
     if(target>=0 && target<N) showChapter(target);
     if(target===N) runFinale();
