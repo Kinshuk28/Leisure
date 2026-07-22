@@ -8,6 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Parisienne&family=Marcellus&display=swap" rel="stylesheet" />
+<!-- start downloading the song immediately so it is ready before the first tap -->
+<link rel="preload" href="assets/audio/lae-dooba.mp3" as="audio" type="audio/mpeg" />
 <style>
   :root{
     --ink:#f3ecff;
@@ -573,6 +575,8 @@ const FINALE_LINES = [
   // ---------- background music ----------
   const bgm=document.getElementById('bgm');
   const musicToggle=document.getElementById('musicToggle');
+  // begin buffering the track right away (during the moon gate) so it is ready to play on the first tap
+  try{ bgm.load(); }catch(e){}
   const TARGET_VOL=0.32;
   let musicOn=false, fadeTimer=null;
   function fadeVol(to,ms){
@@ -591,7 +595,10 @@ const FINALE_LINES = [
       pr.then(()=>{ musicOn=true; musicToggle.hidden=false;
         requestAnimationFrame(()=>musicToggle.classList.add('show'));
         musicToggle.classList.remove('muted'); musicToggle.setAttribute('aria-label','Pause music');
-        fadeVol(TARGET_VOL,2600);
+        // fade in the instant real audio starts, even if it had to buffer first,
+        // so she never hears it jump in part-way through
+        if(!bgm.paused && bgm.currentTime>0){ fadeVol(TARGET_VOL,2600); }
+        else{ bgm.addEventListener('playing',()=>fadeVol(TARGET_VOL,2600),{once:true}); }
       }).catch(()=>{ /* no file yet or autoplay blocked; toggle stays hidden */ });
     }
   }
